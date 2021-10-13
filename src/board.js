@@ -38,11 +38,21 @@ Board.prototype.isValidPos = function (pos) {
   return true;
 };
 
+// function InvalidPosition( pos ) {
+//   this.pos = pos;
+//   this.message = 'is not a valid position on the 8x8 board';
+//   this.toString = `[${this.pos}] ${this.message}`;
+// }
+
 /**
  * Returns the piece at a given [x, y] position,
  * throwing an Error if the position is invalid.
  */
 Board.prototype.getPiece = function (pos) {
+  if ( !this.isValidPos( pos )) throw new Error( 'Not valid pos!' );
+
+  let [ x, y ] = pos;
+  return this.grid[x][y];
 };
 
 /**
