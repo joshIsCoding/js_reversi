@@ -11,7 +11,7 @@ if (typeof window === 'undefined'){
 function _makeGrid () {
   let board = Array.from( { length: 8 }, () => Array.from( { length: 8 } ) );
   for ( let i = 0; i <= 1; i++ ) {
-    board[3 + i][4 - i] = new Piece( 'black' );
+    board[4 - i][3 + i] = new Piece( 'black' );
     board[3 + i][3 + i] = new Piece( 'white' );
   }
   return board;
@@ -86,6 +86,19 @@ Board.prototype.isOccupied = function (pos) {
  * Returns empty array if no pieces of the opposite color are found.
  */
 Board.prototype._positionsToFlip = function(pos, color, dir, piecesToFlip){
+  const newPos = pos.map( ( ele, i ) => ele + dir[i] );
+  if ( !this.isValidPos( pos ) || !this.isValidPos( newPos )) return [];
+  
+  piecesToFlip = piecesToFlip ? piecesToFlip : [];
+  const piece = this.getPiece( newPos );
+
+  if ( piece && piece.oppColor() === color ) {
+    piecesToFlip.push( newPos );
+  } else {
+    return piecesToFlip;
+  }
+
+  return this._positionsToFlip( newPos, color, dir, piecesToFlip );
 };
 
 /**
