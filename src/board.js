@@ -147,6 +147,19 @@ Board.prototype.isOver = function () {
  * Prints a string representation of the Board to the console.
  */
 Board.prototype.print = function () {
+  let rowAxis = Array.from( {length: 8}, (_ele, i) => i );
+  console.log( ' ', rowAxis.join( ' ' ) );
+  let row, square;
+  
+  for ( let y = 0; y < 8; y++ ) {
+    row =  `${y}`
+    for ( let x = 0; x < 8; x++ ) {
+      square = this.grid[x][y];
+      square = square ? square.toString() : '_';
+      row += ` ${square}`;
+    }
+    console.log( row );
+  }
 };
 
 
