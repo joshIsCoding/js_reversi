@@ -161,6 +161,7 @@ Board.prototype.validMoves = function (color) {
  * Checks if there are any valid moves for the given color.
  */
 Board.prototype.hasMove = function (color) {
+  return this.validMoves( color ).length > 0;
 };
 
 
