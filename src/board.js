@@ -171,6 +171,7 @@ Board.prototype.hasMove = function (color) {
  * the black player are out of moves.
  */
 Board.prototype.isOver = function () {
+  return !this.hasMove( 'white' ) && !this.hasMove( 'black' );
 };
 
 
