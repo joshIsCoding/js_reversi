@@ -30,6 +30,11 @@ Board.DIRS = [
   [-1,  0], [-1,  1]
 ];
 
+
+Board.mutatePosition = function ( pos, dir ) {
+  return pos.map(( ele, i ) => ele + dir[i] );
+};
+
 /**
  * Checks if a given position is on the Board.
  */
@@ -86,8 +91,10 @@ Board.prototype.isOccupied = function (pos) {
  * Returns empty array if no pieces of the opposite color are found.
  */
 Board.prototype._positionsToFlip = function(pos, color, dir, piecesToFlip){
-  const newPos = pos.map( ( ele, i ) => ele + dir[i] );
-  if ( !this.isValidPos( pos ) || !this.isValidPos( newPos )) return [];
+  const newPos = this.constructor.mutatePosition( pos, dir );
+  if ( !this.isValidPos( pos ) || !this.isValidPos( newPos ) || !this.isOccupied( newPos )) {
+    return [];
+  }
   
   piecesToFlip = piecesToFlip ? piecesToFlip : [];
   const piece = this.getPiece( newPos );
